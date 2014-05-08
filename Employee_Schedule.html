@@ -8,21 +8,22 @@
 .table th               {font-family: Arial, sans-serif; font-size: 14px; padding: 0px 0px; border-style: solid; border-width: 1px; overflow: hidden; word-break: normal; text-align:  center; font-weight: bold;}
 .table td               {font-family: Arial, sans-serif; font-size: 14px; padding: 4px 2px; border-style: solid; border-width: 1px; overflow: hidden; word-break: normal; text-align:  center; font-weight: bold;}
 .table .line td         {background-color: #9b9b9b; padding: 2px 0px;}
-.table .black           {background-color: #c0c0c0;}
+.table .black           {background-color: #E3CD8D;}
+.table .white           {background-color: #ffffff;}
 .table .ten             {background-color: #ffffff;}
-.table .eleven          {background-color: #c0c0c0;}
+.table .eleven          {background-color: #E3CD8D;}
 .table .twelve          {background-color: #ffffff;}
-.table .thirteen        {background-color: #c0c0c0;}
+.table .thirteen        {background-color: #E3CD8D;}
 .table .fourteen        {background-color: #ffffff;}
-.table .fifteen         {background-color: #c0c0c0;}
+.table .fifteen         {background-color: #E3CD8D;}
 .table .sixteen         {background-color: #ffffff;}
 .table .divider         {background-color: #9b9b9b;}
 .table .time            {}
 .table .day             {}
-.Aaron                  {background-color: #cb0000;}
-.Joe                    {background-color: #986536;}
-.Jonah                  {background-color: #036400;}
-.Jamie                  {background-color: #010066;}
+.Aaron                  {background-color: #DEC371;}/*{background-color: #E73F3F;}*/
+.Joe                    {background-color: #127687;}/*{background-color: #F76C27;}*/
+.Jonah                  {background-color: #2D8712;}/*{background-color: #6D9DD1;}*/
+.Jamie                  {background-color: #C2AA0C;}/*{background-color: #E7E737;}*/
 .key .color             {width: 5%;}
 .key .name              {width: 11%; text-align: center; font-weight: bolder; font-size: 25}
 .key .divider           {background-color: #9b9b9b; width: 1%;}
@@ -39,14 +40,15 @@ function setProperty(colName) {
     var i;
     for (i = 0; i < cols.length; i++) {
         cols[i].style['textDecoration'] = 'underline';
-        cols[i].style["background"] = "#575757";
+        cols[i].style["background"] = "#292929";
     }
 }
 
 function setPropertyById(dayId) {
     var day = document.getElementById(dayId);
     day.style['textDecoration'] = 'underline';
-    day.style["background"] = "#575757";
+    day.style["background"] = "#292929";
+    day.style["color"] = "#E3CD8D";
 }
 
 function setByTime() {
@@ -96,180 +98,185 @@ function setByTime() {
         break;
     }
     setProperty(h);
-    setPropertyById(q);
+    setPropertyById(q);    
+}
+
+function startTimer(){
+    setByTime();
     var intervalID = window.setInterval(setByTime, 60000);
 }
+
 </script>
 </head>
-<body onload="setByTime()">
-<table class="table">
-  <tr class="white">
-    <th class="day"></th>
-    <th class="divider"></th>
-    <th id="Monday" class="day" colspan="2">Monday</th>
-    <th class="divider"></th>
-    <th id="Tuesday" class="day" colspan="3">Tuesday</th>
-    <th class="divider"></th>
-    <th id="Wendnesday" class="day" colspan="2">Wednesday</th>
-    <th class="divider"></th>
-    <th id="Thursday" class="day" colspan="2">Thursday</th>
-    <th class="divider"></th>
-    <th id="Friday" class="day" colspan="2">Friday</th>
-  </tr>
-  <tr class="line">
-    <td class="divider" colspan="17"></td>
-  </tr>
-  <tr class="ten">
-    <td class="time">10</td>
-    <td class="divider"></td>
-    <td class="Aaron">Aaron</td>
-    <td></td>
-    <td class="divider"></td>
-    <td></td>
-    <td class="Joe">Joe</td>
-    <td></td>
-    <td class="divider"></td>
-    <td class="Aaron">Aaron</td>
-    <td></td>
-    <td class="divider"></td>
-    <td></td>
-    <td class="Jonah">Jonah</td>
-    <td class="divider"></td>
-    <td class="Aaron">Aaron</td>
-    <td></td>
-  </tr>
-  <tr class="eleven">
-    <td class="time">11</td>
-    <td class="divider"></td>
-    <td class="Aaron">Aaron</td>
-    <td></td>
-    <td class="divider"></td>
-    <td></td>
-    <td class="Joe">Joe</td>
-    <td></td>
-    <td class="divider"></td>
-    <td class="Aaron">Aaron</td>
-    <td></td>
-    <td class="divider"></td>
-    <td class="Joe">Joe</td>
-    <td class="Jonah">Jonah</td>
-    <td class="divider"></td>
-    <td class="Aaron">Aaron</td>
-    <td></td>
-  </tr>
-  <tr class="twelve">
-    <td class="time">12</td>
-    <td class="divider"></td>
-    <td></td>
-    <td class="Jamie">Jamie</td>
-    <td class="divider"></td>
-    <td></td>
-    <td class="Joe">Joe</td>
-    <td></td>
-    <td class="divider"></td>
-    <td class="Aaron">Aaron</td>
-    <td></td>
-    <td class="divider"></td>
-    <td class="Joe">Joe</td>
-    <td></td>
-    <td class="divider"></td>
-    <td></td>
-    <td class="Jamie">Jamie</td>
-  </tr>
-  <tr class="thirteen">
-    <td class="time">13</td>
-    <td class="divider"></td>
-    <td></td>
-    <td class="Jamie">Jamie</td>
-    <td class="divider"></td>
-    <td class="Aaron">Aaron</td>
-    <td class="Joe">Joe</td>
-    <td></td>
-    <td class="divider"></td>
-    <td class="Aaron">Aaron</td>
-    <td></td>
-    <td class="divider"></td>
-    <td class="Joe">Joe</td>
-    <td></td>
-    <td class="divider"></td>
-    <td></td>
-    <td class="Jamie">Jamie</td>
-  </tr>
-  <tr class="fourteen">
-    <td class="time">14</td>
-    <td class="divider"></td>
-    <td></td>
-    <td class="Jamie">Jamie</td>
-    <td class="divider"></td>
-    <td class="Aaron">Aaron</td>
-    <td></td>
-    <td></td>
-    <td class="divider"></td>
-    <td></td>
-    <td class="Jonah">Jonah</td>
-    <td class="divider"></td>
-    <td></td>
-    <td></td>
-    <td class="divider"></td>
-    <td></td>
-    <td class="Jamie">Jamie</td>
-  </tr>
-  <tr class="fifteen">
-    <td class="time">15</td>
-    <td class="divider"></td>
-    <td></td>
-    <td class="Jamie">Jamie</td>
-    <td class="divider"></td>
-    <td></td>
-    <td class="Joe">Joe</td>
-    <td class="Jonah">Jonah</td>
-    <td class="divider"></td>
-    <td></td>
-    <td class="Jonah">Jonah</td>
-    <td class="divider"></td>
-    <td class="Joe">Joe</td>
-    <td></td>
-    <td class="divider"></td>
-    <td></td>
-    <td class="Jamie">Jamie</td>
-  </tr>
-  <tr class="sixteen">
-    <td class="time">16</td>
-    <td class="divider"></td>
-    <td></td>
-    <td class="Jamie">Jamie</td>
-    <td class="divider"></td>
-    <td></td>
-    <td></td>
-    <td class="Jonah">Jonah</td>
-    <td class="divider"></td>
-    <td></td>
-    <td class="Jonah">Jonah</td>
-    <td class="divider"></td>
-    <td class="Joe">Joe</td>
-    <td></td>
-    <td class="divider"></td>
-    <td></td>
-    <td class="Jamie">Jamie</td>
-  </tr>
-  <tr class="line">
-    <td class="divider" colspan="17"></td>
-  </tr>
-  </table>
-  <table class="key">
-  <tr>
-    <td class="color Aaron"></td>
-    <td class="name">Aaron</td>
-    <td class="divider"></td>
-    <td class="color Jamie"></td>
-    <td class="name">Jamie</td>
-    <td class="divider"></td>
-    <td class="color Joe"></td>
-    <td class="name">Joe</td>
-    <td class="divider"></td>
-    <td class="color Jonah"></td>
-    <td class="name">Jonah</td>
-  </tr>
-</table>
+<body onload="startTimer()">
+    <table class="table">
+      <tr class="white">
+        <th class="day"></th>
+        <th class="divider"></th>
+        <th id="Monday" class="day" colspan="2">Monday</th>
+        <th class="divider"></th>
+        <th id="Tuesday" class="day" colspan="3">Tuesday</th>
+        <th class="divider"></th>
+        <th id="Wendnesday" class="day" colspan="2">Wednesday</th>
+        <th class="divider"></th>
+        <th id="Thursday" class="day" colspan="2">Thursday</th>
+        <th class="divider"></th>
+        <th id="Friday" class="day" colspan="2">Friday</th>
+      </tr>
+      <tr class="line">
+        <td class="divider" colspan="17"></td>
+      </tr>
+      <tr class="ten">
+        <td class="time">10</td>
+        <td class="divider"></td>
+        <td class="Aaron">Aaron</td>
+        <td></td>
+        <td class="divider"></td>
+        <td></td>
+        <td class="Joe">Joe</td>
+        <td></td>
+        <td class="divider"></td>
+        <td class="Aaron">Aaron</td>
+        <td></td>
+        <td class="divider"></td>
+        <td></td>
+        <td class="Jonah">Jonah</td>
+        <td class="divider"></td>
+        <td class="Aaron">Aaron</td>
+        <td></td>
+      </tr>
+      <tr class="eleven">
+        <td class="time">11</td>
+        <td class="divider"></td>
+        <td class="Aaron">Aaron</td>
+        <td></td>
+        <td class="divider"></td>
+        <td></td>
+        <td class="Joe">Joe</td>
+        <td></td>
+        <td class="divider"></td>
+        <td class="Aaron">Aaron</td>
+        <td></td>
+        <td class="divider"></td>
+        <td class="Joe">Joe</td>
+        <td class="Jonah">Jonah</td>
+        <td class="divider"></td>
+        <td class="Aaron">Aaron</td>
+        <td></td>
+      </tr>
+      <tr class="twelve">
+        <td class="time">12</td>
+        <td class="divider"></td>
+        <td></td>
+        <td class="Jamie">Jamie</td>
+        <td class="divider"></td>
+        <td></td>
+        <td class="Joe">Joe</td>
+        <td></td>
+        <td class="divider"></td>
+        <td class="Aaron">Aaron</td>
+        <td></td>
+        <td class="divider"></td>
+        <td class="Joe">Joe</td>
+        <td></td>
+        <td class="divider"></td>
+        <td></td>
+        <td class="Jamie">Jamie</td>
+      </tr>
+      <tr class="thirteen">
+        <td class="time">13</td>
+        <td class="divider"></td>
+        <td></td>
+        <td class="Jamie">Jamie</td>
+        <td class="divider"></td>
+        <td class="Aaron">Aaron</td>
+        <td class="Joe">Joe</td>
+        <td></td>
+        <td class="divider"></td>
+        <td class="Aaron">Aaron</td>
+        <td></td>
+        <td class="divider"></td>
+        <td class="Joe">Joe</td>
+        <td></td>
+        <td class="divider"></td>
+        <td></td>
+        <td class="Jamie">Jamie</td>
+      </tr>
+      <tr class="fourteen">
+        <td class="time">14</td>
+        <td class="divider"></td>
+        <td></td>
+        <td class="Jamie">Jamie</td>
+        <td class="divider"></td>
+        <td class="Aaron">Aaron</td>
+        <td></td>
+        <td></td>
+        <td class="divider"></td>
+        <td></td>
+        <td class="Jonah">Jonah</td>
+        <td class="divider"></td>
+        <td></td>
+        <td></td>
+        <td class="divider"></td>
+        <td></td>
+        <td class="Jamie">Jamie</td>
+      </tr>
+      <tr class="fifteen">
+        <td class="time">15</td>
+        <td class="divider"></td>
+        <td></td>
+        <td class="Jamie">Jamie</td>
+        <td class="divider"></td>
+        <td></td>
+        <td class="Joe">Joe</td>
+        <td class="Jonah">Jonah</td>
+        <td class="divider"></td>
+        <td></td>
+        <td class="Jonah">Jonah</td>
+        <td class="divider"></td>
+        <td class="Joe">Joe</td>
+        <td></td>
+        <td class="divider"></td>
+        <td></td>
+        <td class="Jamie">Jamie</td>
+      </tr>
+      <tr class="sixteen">
+        <td class="time">16</td>
+        <td class="divider"></td>
+        <td></td>
+        <td class="Jamie">Jamie</td>
+        <td class="divider"></td>
+        <td></td>
+        <td></td>
+        <td class="Jonah">Jonah</td>
+        <td class="divider"></td>
+        <td></td>
+        <td class="Jonah">Jonah</td>
+        <td class="divider"></td>
+        <td class="Joe">Joe</td>
+        <td></td>
+        <td class="divider"></td>
+        <td></td>
+        <td class="Jamie">Jamie</td>
+      </tr>
+      <tr class="line">
+        <td class="divider" colspan="17"></td>
+      </tr>
+    </table>
+    <table class="key">
+      <tr>
+        <td class="color Aaron"></td>
+        <td class="name">Aaron</td>
+        <td class="divider"></td>
+        <td class="color Jamie"></td>
+        <td class="name">Jamie</td>
+        <td class="divider"></td>
+        <td class="color Joe"></td>
+        <td class="name">Joe</td>
+        <td class="divider"></td>
+        <td class="color Jonah"></td>
+        <td class="name">Jonah</td>
+      </tr>
+    </table>
 </body>
 </html>
