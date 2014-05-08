@@ -8,22 +8,22 @@
 .table th               {font-family: Arial, sans-serif; font-size: 14px; padding: 0px 0px; border-style: solid; border-width: 1px; overflow: hidden; word-break: normal; text-align:  center; font-weight: bold;}
 .table td               {font-family: Arial, sans-serif; font-size: 14px; padding: 4px 2px; border-style: solid; border-width: 1px; overflow: hidden; word-break: normal; text-align:  center; font-weight: bold;}
 .table .line td         {background-color: #9b9b9b; padding: 2px 0px;}
-.table .black           {background-color: #E3CD8D;}
+.table .black           {background-color: #848D82;}
 .table .white           {background-color: #ffffff;}
 .table .ten             {background-color: #ffffff;}
-.table .eleven          {background-color: #E3CD8D;}
+.table .eleven          {background-color: #848D82;}
 .table .twelve          {background-color: #ffffff;}
-.table .thirteen        {background-color: #E3CD8D;}
+.table .thirteen        {background-color: #848D82;}
 .table .fourteen        {background-color: #ffffff;}
-.table .fifteen         {background-color: #E3CD8D;}
+.table .fifteen         {background-color: #848D82;}
 .table .sixteen         {background-color: #ffffff;}
 .table .divider         {background-color: #9b9b9b;}
 .table .time            {}
 .table .day             {}
-.Aaron                  {background-color: #DEC371;}/*{background-color: #E73F3F;}*/
+.Aaron                  {background-color: #E73F3F;}/*{background-color: #E73F3F;}*/
 .Joe                    {background-color: #127687;}/*{background-color: #F76C27;}*/
-.Jonah                  {background-color: #2D8712;}/*{background-color: #6D9DD1;}*/
-.Jamie                  {background-color: #C2AA0C;}/*{background-color: #E7E737;}*/
+.Jonah                  {background-color: #F76C27;}/*{background-color: #6D9DD1;}*/
+.Jamie                  {background-color: #E7E737;}/*{background-color: #E7E737;}*/
 .key .color             {width: 5%;}
 .key .name              {width: 11%; text-align: center; font-weight: bolder; font-size: 25}
 .key .divider           {background-color: #9b9b9b; width: 1%;}
@@ -36,9 +36,12 @@ var colorJonah = "#036400";
 var colorJamie = "#010066";
 
 function setProperty(colName) {
-    var cols = document.querySelectorAll(colName);
+    var cols = document.querySelectorAll('.' + colName);
+    var tm = document.getElementById(colName);
+    tm.style["color"] = "#E3CD8D";
     var i;
     for (i = 0; i < cols.length; i++) {
+
         cols[i].style['textDecoration'] = 'underline';
         cols[i].style["background"] = "#292929";
     }
@@ -59,25 +62,25 @@ function setByTime() {
     var h;
     switch(n) {
         case 10:
-            h = ".ten";
+            h = "ten";
         break;
         case 11:
-            h = ".eleven";
+            h = "eleven";
         break;
         case 12:
-            h = ".twelve";
+            h = "twelve";
         break;
         case 13:
-            h = ".thirteen";
+            h = "thirteen";
         break;
         case 14:
-            h = ".fourteen";
+            h = "fourteen";
         break;
         case 15:
-            h = ".fifteen";
+            h = "fifteen";
         break;
         case 16:
-            h = ".sixteen";
+            h = "sixteen";
         break;
     }
     switch(m) {
@@ -127,7 +130,7 @@ function startTimer(){
         <td class="divider" colspan="17"></td>
       </tr>
       <tr class="ten">
-        <td class="time">10</td>
+        <td id="ten" class="time">10</td>
         <td class="divider"></td>
         <td class="Aaron">Aaron</td>
         <td></td>
@@ -146,7 +149,7 @@ function startTimer(){
         <td></td>
       </tr>
       <tr class="eleven">
-        <td class="time">11</td>
+        <td id="eleven" class="time">11</td>
         <td class="divider"></td>
         <td class="Aaron">Aaron</td>
         <td></td>
@@ -165,7 +168,7 @@ function startTimer(){
         <td></td>
       </tr>
       <tr class="twelve">
-        <td class="time">12</td>
+        <td id="twelve" class="time">12</td>
         <td class="divider"></td>
         <td></td>
         <td class="Jamie">Jamie</td>
@@ -184,7 +187,7 @@ function startTimer(){
         <td class="Jamie">Jamie</td>
       </tr>
       <tr class="thirteen">
-        <td class="time">13</td>
+        <td id="thirteen" class="time">13</td>
         <td class="divider"></td>
         <td></td>
         <td class="Jamie">Jamie</td>
@@ -203,7 +206,7 @@ function startTimer(){
         <td class="Jamie">Jamie</td>
       </tr>
       <tr class="fourteen">
-        <td class="time">14</td>
+        <td id="fourteen" class="time">14</td>
         <td class="divider"></td>
         <td></td>
         <td class="Jamie">Jamie</td>
@@ -222,7 +225,7 @@ function startTimer(){
         <td class="Jamie">Jamie</td>
       </tr>
       <tr class="fifteen">
-        <td class="time">15</td>
+        <td id="fifteen" class="time">15</td>
         <td class="divider"></td>
         <td></td>
         <td class="Jamie">Jamie</td>
@@ -241,7 +244,7 @@ function startTimer(){
         <td class="Jamie">Jamie</td>
       </tr>
       <tr class="sixteen">
-        <td class="time">16</td>
+        <td id="sixteen" class="time">16</td>
         <td class="divider"></td>
         <td></td>
         <td class="Jamie">Jamie</td>
