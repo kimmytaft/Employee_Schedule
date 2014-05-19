@@ -1,12 +1,11 @@
-// var colorAaron = "#cb0000";
-// var colorJoe = "#986536";
-// var colorJonah = "#036400";
-// var colorJamie = "#E7E737";
+// COLORS_RGB holds one color for each name
+// Colors are assigned to names in the order each name is first processed
+var COLORS_RGB = ['rgb(231, 63, 63)','rgb(0, 155, 155)','rgb(247, 108, 39)','rgb(231, 231, 75)'];
+var COLORS = COLORS_RGB.map(rgb2hex);
+
 var DAY;
 var TIME;
 var schedule = new XMLHttpRequest();
-var COLORS_RGB = ['rgb(231, 63, 63)','rgb(0, 155, 155)','rgb(247, 108, 39)','rgb(231, 231, 75)'];
-var COLORS = COLORS_RGB.map(rgb2hex);
 var NAMES = new Array();
 
 
@@ -33,6 +32,7 @@ function hex2g(h) {return parseInt((cutHex(h)).substring(2,4),16)}
 function hex2b(h) {return parseInt((cutHex(h)).substring(4,6),16)}
 function cutHex(h) {return (h.charAt(0)=="#") ? h.substring(1,7):h}
 
+//Unused, kept for symmetry
 function hex2rgb(hex){
     hex = cutHex(hex);
     return 'rgb(' + hex2r(hex) + ', ' + hex2g(hex) + ', ' + hex2b(hex) + ')';
@@ -134,7 +134,7 @@ function makeTable() {
         csv[f] = csv[f].split(',');
     }
 
-    // Gets size for each day and fills in missing day names if necesary
+    // Gets size for each day and fills in missing day names if necessary
     var days = [0,0,0,0,0,0];
     var lastDay = '';
     for(var c = 0; c < csv[0].length; c++){
@@ -247,7 +247,8 @@ function makeKey() {
 
 }
 
-function darken() {
+// Darkens cell background color based on class names passed as arguments, i.e. day, time
+function darken(day, time) {
     var nameList = []
     var classes = '';
     for (var i = 0; i < arguments.length; i++) {
@@ -286,6 +287,7 @@ function darken() {
     
 }
 
+//Sets default cell colors
 function setColors() {
     var classes = '';
     var elements;
@@ -307,6 +309,7 @@ function setColors() {
     }
 }
 
+//Calls darken for current date and time
 function setByTime() {
     var i;
     var d = new Date();
@@ -321,7 +324,11 @@ function setByTime() {
     }
 }
 
+//Calls creation functions and sets interval
 function startTimer(){
+    getSchedule();
+    makeTable();
+    makeKey(); 
     setColors();
     setByTime();
     var intervalID = window.setInterval(setByTime, 1000);
