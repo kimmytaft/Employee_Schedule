@@ -1,8 +1,10 @@
-.table                  {border-collapse: collapse; border-spacing: 0; width: 100%; height: 90%}
-.key                    {border-collapse: collapse; border-spacing: 0; width: 100%; height: 10%; border-style: solid; border-width: 1px;}
+html					{height: 100%;}
+body 					{height: 100%; margin: 0px;}
+
+.table                  {border-top: solid; border-width: 1px; border-collapse: collapse; border-spacing: 0; width: 99.9%; height: 84.9%}
 .table th               {font-family: Arial, sans-serif; font-size: 14px; padding: 0px 0px; border-style: solid; border-width: 1px; overflow: hidden; word-break: normal; text-align:  center; font-weight: bold;}
 .table td               {font-family: Arial, sans-serif; font-size: 14px; padding: 4px 2px; border-style: solid; border-width: 1px; overflow: hidden; word-break: normal; text-align:  center; font-weight: bold;}
-.table .line td         {background-color: #9b9b9b; padding: 2px 0px;}
+.table .line td         {background-color: #9b9b9b; padding: 2px 0px; border-bottom: none; border-top: none;}
 .table .black           {background-color: #848D82;}
 .table .white           {background-color: #ffffff;}
 .table .ten             {background-color: #ffffff;}
@@ -13,12 +15,12 @@
 .table .fifteen         {background-color: #848D82;}
 .table .sixteen         {background-color: #ffffff;}
 .table .divider         {background-color: #9b9b9b;}
-.table .time            {}
-.table .day             {}
-.Aaron                  {background-color: #E73F3F;}/*{background-color: #E73F3F;}*/
-.Joe                    {background-color: #127687;}/*{background-color: #F76C27;}*/
-.Jonah                  {background-color: #F76C27;}/*{background-color: #6D9DD1;}*/
-.Jamie                  {background-color: #E7E737;}/*{background-color: #E7E737;}*/
+.table .time            {width: 5%}
+.table .day             {width: 18%;}
+.table .divider			{width: 1%; border-top: none; border-bottom: none;}
+
+.key                    {border-collapse: collapse; border-style: solid; border-width: 1px; border-top: none; width: 99.9%; height: 15%;}
+.key td               	{font-family: Helvetica, sans-serif; border-style: solid; border-width: 1px;}
 .key .color             {width: 5%;}
-.key .name              {width: 11%; text-align: center; font-weight: bold; font-size: 25;}
-.key .divider           {background-color: #9b9b9b; width: 1%;}
+.key .name              {width: 11%; text-align: center; font-weight: bold; font-size: 30px;}
+.key .divider           {background-color: #9b9b9b; width: 1%; border-top-color: #9b9b9b;}

@@ -5,7 +5,7 @@
 var DAY;
 var TIME;
 var schedule = new XMLHttpRequest();
-var COLORS_RGB = ['rgb(231, 63, 63)','rgb(18, 118, 135)','rgb(247, 108, 39)','rgb(231, 231, 55)'];
+var COLORS_RGB = ['rgb(231, 63, 63)','rgb(0, 155, 155)','rgb(247, 108, 39)','rgb(231, 231, 75)'];
 var COLORS = COLORS_RGB.map(rgb2hex);
 var NAMES = new Array();
 
