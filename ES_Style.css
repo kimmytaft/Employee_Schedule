@@ -22,5 +22,5 @@ body 					{height: 100%; margin: 0px;}
 .key                    {border-collapse: collapse; border-style: solid; border-width: 1px; border-top: none; width: 99.9%; height: 15%;}
 .key td               	{font-family: Helvetica, sans-serif; border-style: solid; border-width: 1px;}
 .key .color             {width: 5%;}
-.key .name              {width: 11%; text-align: center; font-weight: bold; font-size: 30px;}
+.key .name              {width: 11%; text-align: center; font-weight: bold; font-size: 30px; color: white; text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000; border-color: black;}
 .key .divider           {background-color: #9b9b9b; width: 1%; border-top-color: #9b9b9b;}
