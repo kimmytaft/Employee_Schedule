@@ -20,7 +20,7 @@ body 					{height: 100%; margin: 0px;}
 .table .divider			{width: 1%; border-top: none; border-bottom: none;}
 
 .key                    {border-collapse: collapse; border-style: solid; border-width: 1px; border-top: none; width: 99.9%; height: 15%;}
-.key td               	{width: 11%; font-family: Helvetica, sans-serif; border-style: solid; border-width: 1px; text-align: center; padding-right: 2%; padding-left: 2%;}
+.key td               	{width: 11%; font-family: Helvetica, sans-serif; border-style: solid; border-width: 1px; text-align: center; padding-right: 1.5%; padding-left: 1.5%;}
 .key div          		{background-color: white;}
-.key .name p 			{font-weight: bold; font-size: 30px; margin: 0px;}
+.key .name p 			{font-weight: bold; font-size: 30px; margin: 0px; border-style: solid; border-width: 1px;}
 .key .divider           {background-color: #9b9b9b; width: 1%; border-top-color: #9b9b9b;}
