@@ -211,6 +211,7 @@ function makeTable() {
 function makeKey() {
     var tr;
     var td;
+    var div;
     var dividertd;
     var table = document.getElementById('key');
 
@@ -224,9 +225,10 @@ function makeKey() {
     for(var i = 0; i < NAMES.length; i++)
     {        
         td = document.createElement('td');    
-
+        div = document.createElement('div');
         td.setAttribute('class', 'name ' + NAMES[i]);
-        td.innerHTML = NAMES[i];
+        div.innerHTML = '<p>' + NAMES[i] + '</p>';
+        td.appendChild(div);
         tr.appendChild(td);
 
         if(i != NAMES.length - 1){
