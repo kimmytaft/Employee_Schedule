@@ -1,26 +1,139 @@
-html					{height: 100%;}
-body 					{height: 100%; margin: 0px;}
+html {
+  height: 100%;
+}
 
-.table                  {border-top: solid; border-width: 1px; border-collapse: collapse; border-spacing: 0; width: 99.9%; height: 84.9%}
-.table th               {font-family: Arial, sans-serif; font-size: 14px; padding: 0px 0px; border-style: solid; border-width: 1px; overflow: hidden; word-break: normal; text-align:  center; font-weight: bold;}
-.table td               {font-family: Arial, sans-serif; font-size: 14px; padding: 4px 2px; border-style: solid; border-width: 1px; overflow: hidden; word-break: normal; text-align:  center; font-weight: bold;}
-.table .line td         {background-color: #9b9b9b; padding: 2px 0px; border-bottom: none; border-top: none;}
-.table .black           {background-color: #848D82;}
-.table .white           {background-color: #ffffff;}
-.table .ten             {background-color: #ffffff;}
-.table .eleven          {background-color: #848D82;}
-.table .twelve          {background-color: #ffffff;}
-.table .thirteen        {background-color: #848D82;}
-.table .fourteen        {background-color: #ffffff;}
-.table .fifteen         {background-color: #848D82;}
-.table .sixteen         {background-color: #ffffff;}
-.table .divider         {background-color: #9b9b9b;}
-.table .time            {width: 5%}
-.table .day             {width: 18%;}
-.table .divider			{width: 1%; border-top: none; border-bottom: none;}
+body {
+  height: 100%;
+  margin: 0px;
+}
 
-.key                    {border-collapse: collapse; border-style: solid; border-width: 1px; border-top: none; width: 99.9%; height: 15%;}
-.key td               	{width: 11%; font-family: Helvetica, sans-serif; border-style: solid; border-width: 1px; text-align: center; padding-right: 1.5%; padding-left: 1.5%;}
-.key div          		{background-color: white;}
-.key .name p 			{font-weight: bold; font-size: 30px; margin: 0px; border-style: solid; border-width: 1px;}
-.key .divider           {background-color: #9b9b9b; width: 1%; border-top-color: #9b9b9b;}
+.table {
+  border-top: solid;
+  border-width: 1px;
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 99.9%;
+  height: 84.9%
+}
+
+.table th {
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  padding: 0px 0px;
+  border-style: solid;
+  border-width: 1px;
+  overflow: hidden;
+  word-break: normal;
+  text-align: center;
+  font-weight: bold;
+}
+
+.table td {
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  padding: 4px 2px;
+  border-style: solid;
+  border-width: 1px;
+  overflow: hidden;
+  word-break: normal;
+  text-align: center;
+  font-weight: bold;
+}
+
+.table .line td {
+  background-color: #9b9b9b;
+  padding: 2px 0px;
+  border-bottom: none;
+  border-top: none;
+}
+
+.table .black {
+  background-color: #848D82;
+}
+
+.table .white {
+  background-color: #ffffff;
+}
+
+.table .ten {
+  background-color: #ffffff;
+}
+
+.table .eleven {
+  background-color: #848D82;
+}
+
+.table .twelve {
+  background-color: #ffffff;
+}
+
+.table .thirteen {
+  background-color: #848D82;
+}
+
+.table .fourteen {
+  background-color: #ffffff;
+}
+
+.table .fifteen {
+  background-color: #848D82;
+}
+
+.table .sixteen {
+  background-color: #ffffff;
+}
+
+.table .divider {
+  background-color: #9b9b9b;
+}
+
+.table .time {
+  width: 5%;
+}
+
+.table .day {
+  width: 18%;
+}
+
+.table .divider {
+  width: 1%;
+  border-top: none;
+  border-bottom: none;
+}
+
+.key {
+  border-collapse: collapse;
+  border-style: solid;
+  border-width: 1px;
+  border-top: none;
+  width: 99.9%;
+  height: 15%;
+}
+
+.key td {
+  width: 11%;
+  font-family: Helvetica, sans-serif;
+  border-style: solid;
+  border-width: 1px;
+  text-align: center;
+  padding-right: 1.5%;
+  padding-left: 1.5%;
+}
+
+.key div {
+  background-color: white;
+}
+
+.key .name p {
+  font-weight: bold;
+  font-size: 30px;
+  margin: 0px;
+  border-style: solid;
+  border-width: 1px;
+}
+
+.key .divider {
+  background-color: #9b9b9b;
+  width: 1%;
+  border-top-color: #9b9b9b;
+}
