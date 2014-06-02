@@ -341,6 +341,7 @@ function setByTime() {
     {
         DAY = day;
         TIME = time;
+        setColors();
         darken(day, time);
     }
 }
