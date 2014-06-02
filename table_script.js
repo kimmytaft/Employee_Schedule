@@ -155,6 +155,7 @@ function makeTable() {
         
         tr = document.createElement('tr');
         tr.setAttribute('class', getTimeName(parseInt(csv[i][0].substring(0,2))));
+        tr.setAttribute('id', getTimeName(parseInt(csv[i][0].substring(0,2))));
         for(var j = 0; j < csv[0].length; j++)
         {
             td = document.createElement('td');
@@ -293,6 +294,24 @@ function darken(day, time) {
 function setColors() {
     var classes = '';
     var elements;
+    var element;
+
+    var trColors = ['#ffffff', '#848D82'];
+    var trBool = 0;
+
+    for (var i = 0; i < TimeToString.length; i++) {
+        // alert(TimeToString[i]);
+        classes = TimeToString[i];
+        if(classes != null)
+        {
+            element = document.getElementById(classes);
+            element.style['backgroundColor'] = trColors[trBool];
+            if(trBool == 0)
+                trBool = 1;
+            else
+                trBool = 0;
+        }
+    }
 
     for (var i = 0; i < NAMES.length; i++) {
         classes = '.' + NAMES[i];

@@ -47,42 +47,6 @@ body {
   border-top: none;
 }
 
-.table .black {
-  background-color: #848D82;
-}
-
-.table .white {
-  background-color: #ffffff;
-}
-
-.table .ten {
-  background-color: #ffffff;
-}
-
-.table .eleven {
-  background-color: #848D82;
-}
-
-.table .twelve {
-  background-color: #ffffff;
-}
-
-.table .thirteen {
-  background-color: #848D82;
-}
-
-.table .fourteen {
-  background-color: #ffffff;
-}
-
-.table .fifteen {
-  background-color: #848D82;
-}
-
-.table .sixteen {
-  background-color: #ffffff;
-}
-
 .table .divider {
   background-color: #9b9b9b;
 }
