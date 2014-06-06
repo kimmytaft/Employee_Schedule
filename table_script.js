@@ -1,6 +1,6 @@
 // COLORS_RGB holds one color for each name
 // Colors are assigned to names in the order each name is first processed
-var COLORS_RGB = ['rgb(231, 63, 63)','rgb(0, 155, 155)','rgb(247, 108, 39)','rgb(231, 231, 75)'];
+var COLORS_RGB = ['rgb(231, 63, 63)','rgb(231, 231, 75)','rgb(0, 155, 155)','rgb(247, 108, 39)'];
 var COLORS = COLORS_RGB.map(rgb2hex);
 
 var DAY;
@@ -108,6 +108,7 @@ function getSchedule(){
     schedule.send();
 }
 
+// Reads in schedule.csv and creates a table with appropriate ID's and Classes
 function makeTable() {
     var tr;
     var td;
@@ -206,9 +207,12 @@ function makeTable() {
         dayCount = 1;
     }
 
+    // Alphabatize names array for later use
+    NAMES.sort();
 }
 
-
+// Makes key
+    // Employees apeare in alphabetical order
 function makeKey() {
     var tr;
     var td;
@@ -238,16 +242,11 @@ function makeKey() {
             tr.appendChild(dividertd);
         }
     }
-         
-                       
         
     table.appendChild(tr);
 
-
     divider = 0;
     dayCount = 1;
-
-
 }
 
 // Darkens cell background color based on class names passed as arguments, i.e. day, time
@@ -299,8 +298,8 @@ function setColors() {
     var trColors = ['#ffffff', '#848D82'];
     var trBool = 0;
 
+    // Sets alternating dark and light row colors
     for (var i = 0; i < TimeToString.length; i++) {
-        // alert(TimeToString[i]);
         classes = TimeToString[i];
         if(classes != null)
         {
@@ -313,6 +312,11 @@ function setColors() {
         }
     }
 
+    // Set defalut colors of each employee
+        // Colors are assigned in order of their apearence in the COLORS array
+        // to employees in alphabetical order
+
+    // Main Table
     for (var i = 0; i < NAMES.length; i++) {
         classes = '.' + NAMES[i];
         elements = document.querySelectorAll('.table ' + classes);
@@ -321,6 +325,7 @@ function setColors() {
         }
     }
 
+    // Key
     for (var i = 0; i < NAMES.length; i++) {
         classes = '.' + NAMES[i];
         elements = document.querySelectorAll('.key ' + classes);
