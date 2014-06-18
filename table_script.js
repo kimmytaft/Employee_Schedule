@@ -1,12 +1,13 @@
 // COLORS_RGB holds one color for each name
 // Colors are assigned to names in the order each name is first processed
-var COLORS_RGB = ['rgb(231, 63, 63)','rgb(231, 231, 75)','rgb(0, 155, 155)','rgb(247, 108, 39)'];
+var COLORS_RGB = ['rgb(231, 231, 75)','rgb(231, 63, 63)','rgb(0, 155, 155)','rgb(247, 108, 39)'];
 var COLORS = COLORS_RGB.map(rgb2hex);
 
 var DAY;
 var TIME;
 var schedule = new XMLHttpRequest();
 var NAMES = new Array();
+var TIMES = new Array();
 
 
 //http://www.sitepoint.com/javascript-generate-lighter-darker-color/
@@ -52,6 +53,15 @@ function rgb2hex(rgb) {
 
 
 var TimeToString = new Array();
+TimeToString[1] = 'one';
+TimeToString[2] = 'two';
+TimeToString[3] = 'three';
+TimeToString[4] = 'four';
+TimeToString[5] = 'five';
+TimeToString[6] = 'six';
+TimeToString[7] = 'seven';
+TimeToString[8] = 'eight';
+TimeToString[9] = 'nine';
 TimeToString[10] = 'ten';
 TimeToString[11] = 'eleven';
 TimeToString[12] = 'twelve';
@@ -59,6 +69,15 @@ TimeToString[13] = 'thirteen';
 TimeToString[14] = 'fourteen';
 TimeToString[15] = 'fifteen';
 TimeToString[16] = 'sixteen';
+TimeToString[17] = 'seventeen';
+TimeToString[18] = 'eighteen';
+TimeToString[19] = 'nineteen';
+TimeToString[20] = 'twenty';
+TimeToString[21] = 'twentyone';
+TimeToString[22] = 'twentytwo';
+TimeToString[23] = 'twentythree';
+TimeToString[24] = 'twentyfour';
+
 
 function getTimeName(n){
     if(typeof n == 'string'){
@@ -121,6 +140,8 @@ function makeTable() {
     var e = 0;
     var table = document.getElementById('table');
     var curr;
+    var time;
+    var timeName;
 
     var tag = 'null'
     var stag = '<' + tag + '>'
@@ -153,10 +174,12 @@ function makeTable() {
 
     for(var i = 0; i < csv.length; i++)
     {
-        
         tr = document.createElement('tr');
-        tr.setAttribute('class', getTimeName(parseInt(csv[i][0].substring(0,2))));
-        tr.setAttribute('id', getTimeName(parseInt(csv[i][0].substring(0,2))));
+        time = parseInt(csv[i][0].substring(0,2));
+        timeName = getTimeName(time);
+        TIMES[time] = timeName;
+        tr.setAttribute('class', timeName);
+        tr.setAttribute('id', timeName);
         for(var j = 0; j < csv[0].length; j++)
         {
             td = document.createElement('td');
@@ -173,7 +196,8 @@ function makeTable() {
             }
             else if(csv[i][j] != ''){
                 if(NAMES.indexOf(csv[i][j])<0){
-                    NAMES[NAMES.length] = csv[i][j];
+                    // NAMES[NAMES.length] = csv[i][j];
+                    NAMES.push(csv[i][j])
                 }
                 td.setAttribute('class', csv[0][j] + ' ' + getTimeName(csv[i][0]) + ' ' + csv[i][j]);
             }
@@ -299,8 +323,8 @@ function setColors() {
     var trBool = 0;
 
     // Sets alternating dark and light row colors
-    for (var i = 0; i < TimeToString.length; i++) {
-        classes = TimeToString[i];
+    for (var i = 0; i < TIMES.length; i++) {
+        classes = TIMES[i];
         if(classes != null)
         {
             element = document.getElementById(classes);
