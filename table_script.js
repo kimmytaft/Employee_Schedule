@@ -1,6 +1,6 @@
 // COLORS_RGB holds one color for each name
 // Colors are assigned to names in the order each name is first processed
-var COLORS_RGB = ['rgb(231, 231, 75)','rgb(231, 63, 63)','rgb(0, 155, 155)','rgb(247, 108, 39)'];
+var COLORS_RGB = ['rgb(231, 63, 63)','rgb(231, 231, 75)','rgb(0, 155, 155)','rgb(247, 108, 39)'];
 var COLORS = COLORS_RGB.map(rgb2hex);
 
 var DAY;
