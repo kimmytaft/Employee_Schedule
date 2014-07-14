@@ -30,7 +30,7 @@ body {
 
 .table td {
   font-family: Arial, sans-serif;
-  font-size: 2em;
+  font-size: 1em;
   padding: 4px 2px;
   border-style: solid;
   border-width: 1px;
@@ -90,7 +90,7 @@ body {
 
 .key .name p {
   font-weight: bold;
-  font-size: 4em;
+  font-size: 2em;
   margin: 0px;
   border-style: solid;
   border-width: 1px;
