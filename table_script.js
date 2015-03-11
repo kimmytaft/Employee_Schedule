@@ -153,7 +153,14 @@ function makeTable() {
 
     // Split csv array on columns to 2-D array
     for(var f = 0; f<csv.length; f++){
-        csv[f] = csv[f].split(',');
+        if(csv[f][0] == undefined)
+        {
+            csv.splice(f,1);
+        }
+        else
+        {
+            csv[f] = csv[f].split(',');
+        }
     }
 
     // Gets size for each day and fills in missing day names if necessary
