@@ -1,15 +1,16 @@
+'use strict';
 // COLORS_RGB holds one color for each name
 // Colors are assigned to names in the order each name is first processed
 var COLORS_RGB = ['rgb(231, 63, 63)','rgb(231, 231, 75)','rgb(0, 155, 155)','rgb(247, 108, 39)'];
-var COLORS = COLORS_RGB.map(rgb2hex);
 
-var DAY;
-var TIME;
+// var DAY;
+// var TIME;
 var schedule = new XMLHttpRequest();
-var NAMES = new Array();
-var TIMES = new Array();
+var NAMES = [];
+var TIMES = [];
 
-
+// Adujsts the Luminance of a color
+//  Used to darken cell colors for current day and time
 //http://www.sitepoint.com/javascript-generate-lighter-darker-color/
 function ColorLuminance(hex, lum) {
     // validate hex string
@@ -19,66 +20,35 @@ function ColorLuminance(hex, lum) {
     }
     lum = lum || 0;
     // convert to decimal and change luminosity
-    var rgb = "#", c, i;
+    var rgb = '#', c, i;
     for (i = 0; i < 3; i++) {
         c = parseInt(hex.substr(i*2,2), 16);
         c = Math.round(Math.min(Math.max(0, c + (c * lum)), 255)).toString(16);
-        rgb += ("00"+c).substr(c.length);
+        rgb += ('00'+c).substr(c.length);
     }
     return rgb;
 }
 
-function hex2r(h) {return parseInt((cutHex(h)).substring(0,2),16)}
-function hex2g(h) {return parseInt((cutHex(h)).substring(2,4),16)}
-function hex2b(h) {return parseInt((cutHex(h)).substring(4,6),16)}
-function cutHex(h) {return (h.charAt(0)=="#") ? h.substring(1,7):h}
 
-//Unused, kept for symmetry
-function hex2rgb(hex){
-    hex = cutHex(hex);
-    return 'rgb(' + hex2r(hex) + ', ' + hex2g(hex) + ', ' + hex2b(hex) + ')';
-}
-
-//Function to convert hex format to a rgb color
+// Function which converts one channel of rgb to one channel of hex
 function hex(x) {
-    var hexDigits = new Array("0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f");
-    return isNaN(x) ? "00" : hexDigits[(x - x % 16) / 16] + hexDigits[x % 16];
+    var hexDigits = new Array('0','1','2','3','4','5','6','7','8','9','a','b','c','d','e','f');
+    return isNaN(x) ? '00' : hexDigits[(x - x % 16) / 16] + hexDigits[x % 16];
 }
 
+// Converts rgb colors to hex colors for passing to ColorLuminance
 function rgb2hex(rgb) {
     rgb = rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
-    return "#" + hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3]);
+    return '#' + hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3]);
 }
 
 
 
-var TimeToString = new Array();
-TimeToString[1] = 'one';
-TimeToString[2] = 'two';
-TimeToString[3] = 'three';
-TimeToString[4] = 'four';
-TimeToString[5] = 'five';
-TimeToString[6] = 'six';
-TimeToString[7] = 'seven';
-TimeToString[8] = 'eight';
-TimeToString[9] = 'nine';
-TimeToString[10] = 'ten';
-TimeToString[11] = 'eleven';
-TimeToString[12] = 'twelve';
-TimeToString[13] = 'thirteen';
-TimeToString[14] = 'fourteen';
-TimeToString[15] = 'fifteen';
-TimeToString[16] = 'sixteen';
-TimeToString[17] = 'seventeen';
-TimeToString[18] = 'eighteen';
-TimeToString[19] = 'nineteen';
-TimeToString[20] = 'twenty';
-TimeToString[21] = 'twentyone';
-TimeToString[22] = 'twentytwo';
-TimeToString[23] = 'twentythree';
-TimeToString[24] = 'twentyfour';
 
 
+// Uses TimeToString array to convert a number, stored as an int or string,
+//  to the corrisponding word to be used as class names
+var TimeToString = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen', 'twenty', 'twentyone', 'twentytwo', 'twentythree', 'twentyfour'];
 function getTimeName(n){
     if(typeof n == 'string'){
         n = parseInt(n.substring(0,2));
@@ -91,13 +61,11 @@ function getTimeName(n){
     }
 }
 
-var DayToName = new Array();
-DayToName[1] = 'Monday';
-DayToName[2] = 'Tuesday';
-DayToName[3] = 'Wednesday';
-DayToName[4] = 'Thursday';
-DayToName[5] = 'Friday';
 
+// Uses DayToString array to convert a number, stored as an int or string,
+//  to the corrisponding day name, to be usedwhen setting and referenceing css classes.
+// ex: getDayName(1) = 'Monday'
+var DayToName = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 function getDayName(m) {
     if(typeof m == 'string'){
         m = parseInt(m);
@@ -110,6 +78,8 @@ function getDayName(m) {
     }
 }
 
+// Uses getDayName function to convert a day name, stored as an int or string,
+//  to the corrisponding day number to be used when setting and referenceing css classes.
 function getDayNum(m) {
     if(typeof m == 'number'){
         m = m.toString();
@@ -122,8 +92,9 @@ function getDayNum(m) {
     return 0;
 }
 
+// Uses XMLHttpRequest to retrive schedule.csv from local storage
 function getSchedule(){
-    schedule.open("get", "schedule.csv", false);
+    schedule.open('get', 'schedule.csv', false);
     schedule.send();
 }
 
@@ -132,20 +103,14 @@ function makeTable() {
     var tr;
     var td;
     var dividertd;
-    var i, j;
-    var emptyBool = 1;
-    var notEmpty = [];
-    var nc = 0;
-    var keep = []
-    var e = 0;
+    // var i, j;
     var table = document.getElementById('table');
-    var curr;
     var time;
     var timeName;
 
-    var tag = 'null'
-    var stag = '<' + tag + '>'
-    var etag = '<' + tag + '/>'
+    var tag = 'null';
+    var stag = '<' + tag + '>';
+    var etag = '<' + tag + '/>';
 
 
     // Split schedule csv on rows to 1-D array
@@ -153,7 +118,7 @@ function makeTable() {
 
     // Split csv array on columns to 2-D array
     for(var f = 0; f<csv.length; f++){
-        if(csv[f][0] == undefined)
+        if(csv[f][0] === undefined)
         {
             csv.splice(f,1);
         }
@@ -191,20 +156,20 @@ function makeTable() {
         {
             td = document.createElement('td');
         
-            if(getTimeName(csv[i][j]) != ''){
+            if(getTimeName(csv[i][j]) !== ''){
                 td.setAttribute('class', 'time');
                 td.innerHTML = csv[i][j].substring(0,2);
             }
-            else if(getDayNum(csv[i][j]) != 0){
+            else if(getDayNum(csv[i][j]) !== 0){
                 td.innerHTML = stag + csv[i][j] + etag;
                 td.setAttribute('class', 'day');
                 td.setAttribute('colSpan', days[getDayNum(csv[i][j])]);
                 j+=days[getDayNum(csv[i][j])]-1;
             }
-            else if(csv[i][j] != ''){
+            else if(csv[i][j] !== ''){
                 if(NAMES.indexOf(csv[i][j])<0){
                     // NAMES[NAMES.length] = csv[i][j];
-                    NAMES.push(csv[i][j])
+                    NAMES.push(csv[i][j]);
                 }
                 td.setAttribute('class', csv[0][j] + ' ' + getTimeName(csv[i][0]) + ' ' + csv[i][j]);
             }
@@ -225,7 +190,7 @@ function makeTable() {
         }
         table.appendChild(tr);
 
-        if((i==0)|(i==csv.length-1)){
+        if((i===0)|(i==csv.length-1)){
            var linetr = document.createElement('tr');
            linetr.setAttribute('class', 'line');
            var linetd = document.createElement('td');
@@ -251,9 +216,6 @@ function makeKey() {
     var dividertd;
     var table = document.getElementById('key');
 
-    var tag = 'null'
-    var stag = '<' + tag + '>'
-    var etag = '<' + tag + '/>'
 
     tr = document.createElement('tr');
     tr.setAttribute('class', '');
@@ -276,13 +238,13 @@ function makeKey() {
         
     table.appendChild(tr);
 
-    divider = 0;
-    dayCount = 1;
 }
 
 // Darkens cell background color based on class names passed as arguments, i.e. day, time
 function darken(day, time) {
-    var nameList = []
+    var style;
+    var bcolor;
+    var nameList = [];
     var classes = '';
     for (var i = 0; i < arguments.length; i++) {
         classes += '.' + arguments[i];
@@ -292,36 +254,37 @@ function darken(day, time) {
 
     /* Will only darken color if it is in color set COLORS_RGB */
     /* i.e. Will only darken a cell once */
-    for (var i = 0; i < element.length; i++) {
+    for (i = 0; i < element.length; i++) {
         var n = element[i].className.split(' ')[2];
         if(n){
             nameList[nameList.length] = n;
         }
-        var style = window.getComputedStyle(element[i]);
-        var bcolor = style.getPropertyValue('background-color');
+        style = window.getComputedStyle(element[i]);
+        bcolor = style.getPropertyValue('background-color');
         if(COLORS_RGB.indexOf(bcolor)>=0)
         {
-            element[i].style['backgroundColor'] = ColorLuminance(rgb2hex(bcolor), -.25);
+            element[i].style.backgroundColor = new ColorLuminance(rgb2hex(bcolor), -0.25);
         }
-    };
+    }
     
 
     /* Darkens those working in Key */
-    for (var i = 0; i < nameList.length; i++) {
+    for (i = 0; i < nameList.length; i++) {
         classes = '.name.' + nameList[i];
         element = document.querySelectorAll(classes);
-        var style = window.getComputedStyle(element[0]);
-        var bcolor = style.getPropertyValue('background-color');
+        style = window.getComputedStyle(element[0]);
+        bcolor = style.getPropertyValue('background-color');
         if(COLORS_RGB.indexOf(bcolor)>=0)
         {
-            element[0].style['backgroundColor'] = ColorLuminance(rgb2hex(bcolor), -.25);
+            element[0].style.backgroundColor = new ColorLuminance(rgb2hex(bcolor), -0.25);
         }
-    };
+    }
     
 }
 
 //Sets default cell colors
 function setColors() {
+    var i, j;
     var classes = '';
     var elements;
     var element;
@@ -330,13 +293,13 @@ function setColors() {
     var trBool = 0;
 
     // Sets alternating dark and light row colors
-    for (var i = 0; i < TIMES.length; i++) {
+    for (i = 0; i < TIMES.length; i++) {
         classes = TIMES[i];
-        if(classes != null)
+        if(classes !== null)
         {
             element = document.getElementById(classes);
-            element.style['backgroundColor'] = trColors[trBool];
-            if(trBool == 0)
+            element.style.backgroundColor = trColors[trBool];
+            if(trBool === 0)
                 trBool = 1;
             else
                 trBool = 0;
@@ -348,38 +311,38 @@ function setColors() {
         // to employees in alphabetical order
 
     // Main Table
-    for (var i = 0; i < NAMES.length; i++) {
+    for (i = 0; i < NAMES.length; i++) {
         classes = '.' + NAMES[i];
         elements = document.querySelectorAll('.table ' + classes);
-        for (var j = 0; j < elements.length; j++) {
-            elements[j].style['backgroundColor'] = COLORS_RGB[i];
+        for (j = 0; j < elements.length; j++) {
+            elements[j].style.backgroundColor = COLORS_RGB[i];
         }
     }
 
     // Key
-    for (var i = 0; i < NAMES.length; i++) {
+    for (i = 0; i < NAMES.length; i++) {
         classes = '.' + NAMES[i];
         elements = document.querySelectorAll('.key ' + classes);
-        for (var j = 0; j < elements.length; j++) {
-            elements[j].style['backgroundColor'] = COLORS_RGB[i];
+        for (j = 0; j < elements.length; j++) {
+            elements[j].style.backgroundColor = COLORS_RGB[i];
         }
     }
 }
 
 //Calls darken for current date and time
 function setByTime() {
-    var i;
     var d = new Date();
     var time = getTimeName(d.getHours());
     var day = getDayName(d.getDay());
-
-    if((day!=DAY)|(time!=TIME))
-    {
-        DAY = day;
-        TIME = time;
-        setColors();
-        darken(day, time);
-    }
+    setColors();
+    darken(day, time);
+    // if((day!=DAY)|(time!=TIME))
+    // {
+    //     DAY = day;
+    //     TIME = time;
+    //     setColors();
+    //     darken(day, time);
+    // }
 }
 
 //Calls creation functions and sets interval
