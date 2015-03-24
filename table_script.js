@@ -78,7 +78,7 @@ TimeToString[22] = 'twentytwo';
 TimeToString[23] = 'twentythree';
 TimeToString[24] = 'twentyfour';
 
-
+//gets the time of day
 function getTimeName(n){
     if(typeof n == 'string'){
         n = parseInt(n.substring(0,2));
@@ -139,7 +139,7 @@ function makeTable() {
     var keep = []
     var e = 0;
     var table = document.getElementById('table');
-    var curr;
+    var curr = 0;
     var time;
     var timeName;
 
@@ -159,7 +159,7 @@ function makeTable() {
     // Gets size for each day and fills in missing day names if necessary
     var days = [0,0,0,0,0,0];
     var lastDay = '';
-    for(var c = 0; c < csv[0].length; c++){
+    for(var c = curr; c < csv[0].length; c++){
         if(csv[0][c]){
             lastDay = csv[0][c];
         }
@@ -167,6 +167,7 @@ function makeTable() {
             csv[0][c] = lastDay;
         }
         days[getDayNum(lastDay)]++;
+	console.log(days);
     }
     
     var divider = 0;
