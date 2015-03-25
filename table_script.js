@@ -191,7 +191,8 @@ function makeTable() {
                     tableHeading = tableRow.insertCell(j); 
                     tableHeading.innerHTML = columns[j];
                     tableHeading.setAttribute('class', 'day');
-                    tableHeading.setAttribute("colspan", "4");
+                    tableHeading.setAttribute("colspan", "4");//colspan needs to change depending on how many people are working on that day.
+                    //right now it hard coded to 4, so i could try to fill the grid. 
                     tableRow.appendChild(tableHeading);
                 }
                 table.appendChild(tableRow);
