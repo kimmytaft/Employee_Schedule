@@ -3,8 +3,6 @@
 // Colors are assigned to names in the order each name is first processed
 var COLORS_RGB = ['rgb(231, 63, 63)','rgb(231, 231, 75)','rgb(0, 155, 155)','rgb(247, 108, 39)'];
 
-// var DAY;
-// var TIME;
 var schedule = new XMLHttpRequest();
 var NAMES = [];
 var TIMES = [];
@@ -41,9 +39,6 @@ function rgb2hex(rgb) {
     rgb = rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
     return '#' + hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3]);
 }
-
-
-
 
 
 // Uses TimeToString array to convert a number, stored as an int or string,
@@ -84,6 +79,12 @@ function getDayNum(m) {
     if(typeof m == 'number'){
         m = m.toString();
     }
+    // var d = DayToName.indexOf(m);
+    // if (DayToName[d] == m){
+    //     return d;
+    // }
+    // return 0;
+
     for (var i = 0; i < DayToName.length; i++) {
         if(getDayName(i) == m){
             return i;
@@ -103,7 +104,7 @@ function makeTable() {
     var tr;
     var td;
     var dividertd;
-    // var i, j;
+    var i, j;
     var table = document.getElementById('table');
     var time;
     var timeName;
@@ -118,6 +119,7 @@ function makeTable() {
 
     // Split csv array on columns to 2-D array
     for(var f = 0; f<csv.length; f++){
+        // Dont add line if null
         if(csv[f][0] === undefined)
         {
             csv.splice(f,1);
@@ -144,7 +146,8 @@ function makeTable() {
     var divider = 0;
     var dayCount = 1;
 
-    for(var i = 0; i < csv.length; i++)
+    // For each row
+    for(i = 0; i < csv.length; i++)
     {
         tr = document.createElement('tr');
         time = parseInt(csv[i][0].substring(0,2));
@@ -152,10 +155,13 @@ function makeTable() {
         TIMES[time] = timeName;
         tr.setAttribute('class', timeName);
         tr.setAttribute('id', timeName);
-        for(var j = 0; j < csv[0].length; j++)
+
+        // For each column
+        for(j = 0; j < csv[0].length; j++)
         {
             td = document.createElement('td');
         
+
             if(getTimeName(csv[i][j]) !== ''){
                 td.setAttribute('class', 'time');
                 td.innerHTML = csv[i][j].substring(0,2);
@@ -168,7 +174,6 @@ function makeTable() {
             }
             else if(csv[i][j] !== ''){
                 if(NAMES.indexOf(csv[i][j])<0){
-                    // NAMES[NAMES.length] = csv[i][j];
                     NAMES.push(csv[i][j]);
                 }
                 td.setAttribute('class', csv[0][j] + ' ' + getTimeName(csv[i][0]) + ' ' + csv[i][j]);
@@ -298,11 +303,13 @@ function setColors() {
         if(classes !== null)
         {
             element = document.getElementById(classes);
-            element.style.backgroundColor = trColors[trBool];
-            if(trBool === 0)
-                trBool = 1;
-            else
-                trBool = 0;
+            if (element !== null){
+                element.style.backgroundColor = trColors[trBool];
+                if(trBool === 0)
+                    trBool = 1;
+                else
+                    trBool = 0;
+            }
         }
     }
 
@@ -336,13 +343,6 @@ function setByTime() {
     var day = getDayName(d.getDay());
     setColors();
     darken(day, time);
-    // if((day!=DAY)|(time!=TIME))
-    // {
-    //     DAY = day;
-    //     TIME = time;
-    //     setColors();
-    //     darken(day, time);
-    // }
 }
 
 //Calls creation functions and sets interval
