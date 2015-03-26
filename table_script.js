@@ -95,121 +95,130 @@ function getDayNum(m) {
 
 // Uses XMLHttpRequest to retrive schedule.csv from local storage
 function getSchedule(){
-    schedule.open('get', 'schedule.csv', false);
+    schedule.open("get", "schedule2.json", false);
     schedule.send();
 }
 
-// Reads in schedule.csv and creates a table with appropriate ID's and Classes
+//checks to see who is working what day of the week(***<MAY NEED WORK)
+function isWorking(day , schedule){
+    //create a new array containing the days in the given schedule
+    daysWorking = schedule.map(function (d) {return d.day;});
+    //test when the given day is in the list of scheduled days
+    if( daysWorking.indexOf(day) !== -1){
+        return true;
+    }else{
+        return false;
+    }
+}
+
+//check to see if the time of work is correct to place into the grid (***MAY NEED WORK)
+function validTime(time, schedule){
+    //create a new array containing the times of day worked on the given day
+    timeWorking = schedule.map(function (h) {return h.hours;});
+    for(var index = 0; index < timeWorking.length; index++){
+        if(time >= timeWorking[index].start && time < timeWorking[index].end){
+            return true;
+        }
+    }
+    return false;
+}
+
+// Reads in schedule2.json and creates a table with that information
 function makeTable() {
-    var tr;
-    var td;
-    var dividertd;
-    var i, j;
-    var table = document.getElementById('table');
-    var time;
-    var timeName;
 
-    var tag = 'null';
-    var stag = '<' + tag + '>';
-    var etag = '<' + tag + '/>';
-
-
-    // Split schedule csv on rows to 1-D array
-    var csv = schedule.responseText.split('\n');
-
-    // Split csv array on columns to 2-D array
-    for(var f = 0; f<csv.length; f++){
-        // Dont add line if null
-        if(csv[f][0] === undefined)
-        {
-            csv.splice(f,1);
-        }
-        else
-        {
-            csv[f] = csv[f].split(',');
-        }
-    }
-
-    // Gets size for each day and fills in missing day names if necessary
-    var days = [0,0,0,0,0,0];
-    var lastDay = '';
-    for(var c = 0; c < csv[0].length; c++){
-        if(csv[0][c]){
-            lastDay = csv[0][c];
-        }
-        else{
-            csv[0][c] = lastDay;
-        }
-        days[getDayNum(lastDay)]++;
-    }
+    // the string to parse as json.
+   // var schedule2 = schedule.responceText("schedule2.json");
+    var jsonData = JSON.parse(schedule.responseText);
     
-    var divider = 0;
-    var dayCount = 1;
-
-    // For each row
-    for(i = 0; i < csv.length; i++)
-    {
-        tr = document.createElement('tr');
-        time = parseInt(csv[i][0].substring(0,2));
-        timeName = getTimeName(time);
-        TIMES[time] = timeName;
-        tr.setAttribute('class', timeName);
-        tr.setAttribute('id', timeName);
-
-        // For each column
-        for(j = 0; j < csv[0].length; j++)
-        {
-            td = document.createElement('td');
-        
-
-            if(getTimeName(csv[i][j]) !== ''){
-                td.setAttribute('class', 'time');
-                td.innerHTML = csv[i][j].substring(0,2);
-            }
-            else if(getDayNum(csv[i][j]) !== 0){
-                td.innerHTML = stag + csv[i][j] + etag;
-                td.setAttribute('class', 'day');
-                td.setAttribute('colSpan', days[getDayNum(csv[i][j])]);
-                j+=days[getDayNum(csv[i][j])]-1;
-            }
-            else if(csv[i][j] !== ''){
-                if(NAMES.indexOf(csv[i][j])<0){
-                    NAMES.push(csv[i][j]);
-                }
-                td.setAttribute('class', csv[0][j] + ' ' + getTimeName(csv[i][0]) + ' ' + csv[i][j]);
-            }
-            else{
-                td.setAttribute('class', csv[0][j] + ' ' + getTimeName(csv[i][0]));
-            }
-
-            tr.appendChild(td);
-
-            if(j < csv[0].length-1 & j==divider){
-                dividertd = document.createElement('td');
-                dividertd.setAttribute('class', 'divider');
-                tr.appendChild(dividertd);
-                divider+=days[dayCount];
-                dayCount++;
-            } 
-                       
-        }
-        table.appendChild(tr);
-
-        if((i===0)|(i==csv.length-1)){
-           var linetr = document.createElement('tr');
-           linetr.setAttribute('class', 'line');
-           var linetd = document.createElement('td');
-           linetd.setAttribute('colSpan', csv[0].length+5);
-           linetr.appendChild(linetd);
-           table.appendChild(linetr);
-        }
-
-        divider = 0;
-        dayCount = 1;
+    //fill array NAMES with everyones names;
+    for(var n = 0; n < jsonData.length; n++){
+        NAMES[n] = jsonData[n].name;
     }
 
-    // Alphabatize names array for later use
-    NAMES.sort();
+    //variables needed to create the table
+    var table = document.getElementById('table');
+    var tableHeading
+    var tableRow
+    var tableData
+    var columns = [ " ", " ", "Monday", " ", "Tuesday", " ",  "Wednesday", " ",  "Thursday", " ",  "Friday"];
+    var rows = [" ", " ", "08", "09", "10", "11", "12", "13", "14", "15", "16", " "];
+    
+    //loops throught the rows array to get all the time slots
+    for(var i = 0; i < rows.length; i++){
+        tableRow = document.createElement('tr');
+        //if i == 0 then the its the firt row which needs the table headings
+        if( i == 0){
+            tableHeading = document.createElement('th');
+            //sets the days of the week as table headings
+            for(var j = 0; j < columns.length; j++){
+                if(j == 0){
+                    tableHeading = tableRow.insertCell(j);
+                    tableHeading.innerHTML = columns[j];
+                    tableHeading.setAttribute('class', 'time');
+                }else if(j % 2 != 0){
+                    tableHeading = tableRow.insertCell(j);
+                    tableHeading.setAttribute('class', 'divider');
+             
+                }else{
+                    tableHeading = tableRow.insertCell(j); 
+                    tableHeading.innerHTML = columns[j];
+                    tableHeading.setAttribute('class', 'day');
+                    tableHeading.setAttribute("colspan", "4");//colspan needs to change depending on how many people are working on that day.
+                    //right now it hard coded to 4, so i could try to fill the grid. 
+                    tableRow.appendChild(tableHeading);
+                }
+                table.appendChild(tableRow);
+            }
+        //if its one or eleven then its a divider between the days of the week and the key at the bottom
+        }else if( i == 1 || i == 11){
+            tableData = document.createElement('td');
+            tableData = tableRow.insertCell(0);
+            tableData.innerHTML = rows[i];
+            tableData.setAttribute('class', 'divider2');
+            table.appendChild(tableData);
+        }
+        //any other time we need to build the table's rows with the person schedule
+        else{
+            tableData = document.createElement('td');
+            tableData = tableRow.insertCell(0);
+            tableData.innerHTML = rows[i];
+            tableData.setAttribute('class', 'time'); 
+            //adds time to the first slot of the row
+            tableRow.appendChild(tableData);
+            var integerTime = parseInt( rows[i], 10);
+            var count = 0;
+            
+            //goes through every day of the week
+            for(var daysOfWeek = 0; daysOfWeek < columns.length; daysOfWeek++){
+                //makes sure were are only using valid days of the week
+                if( columns[daysOfWeek] !== " "){
+                    //goes through every person and checks there schedule
+                    for(var person = 0; person < jsonData.length; person++){
+                    
+                        //if their schedule contains day and time then it will add color else null
+                        if(isWorking(daysOfWeek, jsonData[person].schedule) && validTime(integerTime, jsonData[person].schedule)){
+                            tableData = tableRow.insertCell(count);
+                            tableData.innerHTML = jsonData[person].name;
+                            count++;
+                        }else{
+                            tableData = tableRow.insertCell(count);
+                            tableData.innerHTML = null;
+                             count++;
+                        }
+                        tableRow.appendChild(tableData);
+                    }
+                }
+                //more for asetics. Adds divividers between the days of the week to keep grid like structure
+                else{
+                    tableData = tableRow.insertCell(count);
+                    //tableData.setAttribute('class', 'divider2');
+                    tableRow.appendChild(tableData);
+                    count++;
+                }      
+                table.appendChild(tableRow);     
+            }
+        }
+    }
 }
 
 // Makes key
@@ -347,7 +356,9 @@ function setByTime() {
 
 //Calls creation functions and sets interval
 function startTimer(){
+    //allows requests to be sent
     getSchedule();
+    //reads in the json document and places results into the table
     makeTable();
     makeKey(); 
     setColors();
