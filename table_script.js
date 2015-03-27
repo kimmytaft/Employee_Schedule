@@ -6,6 +6,8 @@ var COLORS_RGB = ['rgb(231, 63, 63)','rgb(231, 231, 75)','rgb(0, 155, 155)','rgb
 var schedule = new XMLHttpRequest();
 var NAMES = [];
 var TIMES = [];
+//added color array to use json colors
+var COLOR = [];
 
 // Adujsts the Luminance of a color
 //  Used to darken cell colors for current day and time
@@ -60,16 +62,16 @@ function getTimeName(n){
 // Uses DayToString array to convert a number, stored as an int or string,
 //  to the corrisponding day name, to be usedwhen setting and referenceing css classes.
 // ex: getDayName(1) = 'Monday'
-var DayToName = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+var DayToName = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 function getDayName(m) {
-    if(typeof m == 'string'){
+    if(typeof m == "string"){
         m = parseInt(m);
     }
     if(m){
         return DayToName[m];
     }
     else{
-        return '';
+        return "";
     }
 }
 
@@ -93,28 +95,36 @@ function getDayNum(m) {
     return 0;
 }
 
-// Uses XMLHttpRequest to retrive schedule.csv from local storage
+// Uses XMLHttpRequest to retrive schedule2.json from local storage
 function getSchedule(){
     schedule.open("get", "schedule2.json", false);
-    schedule.send();
+    schedule.send(); 
 }
 
-//checks to see who is working what day of the week(***<MAY NEED WORK)
-function isWorking(day , schedule){
+//checks to see who is working what day of the week(***MAY NEED WORK)
+ 
+function isWorking(day , schedule, time){
     //create a new array containing the days in the given schedule
-    daysWorking = schedule.map(function (d) {return d.day;});
+   // daysWorking = schedule.map(function (d) {return d.day;});
     //test when the given day is in the list of scheduled days
-    if( daysWorking.indexOf(day) !== -1){
-        return true;
-    }else{
-        return false;
+    for(var i = 0; i < schedule.length; i++){	
+    	if(schedule[i].day == getDayName(day/2)){
+	console.log(schedule[i].hours);
+	   if(validTime(time, schedule[i].hours)){
+		console.log("true");
+               return true;
+	   }
+    	}
     }
+    return false;
 }
 
 //check to see if the time of work is correct to place into the grid (***MAY NEED WORK)
-function validTime(time, schedule){
+function validTime(time, timeWorking){
     //create a new array containing the times of day worked on the given day
-    timeWorking = schedule.map(function (h) {return h.hours;});
+    //creates an array containing arrays of the times of day worked by a given employee
+   // timeWorking = schedule.map(function (h) {return h.hours;});
+//jsonData[person].schedule[daysOfWeek].hours
     for(var index = 0; index < timeWorking.length; index++){
         if(time >= timeWorking[index].start && time < timeWorking[index].end){
             return true;
@@ -131,8 +141,10 @@ function makeTable() {
     var jsonData = JSON.parse(schedule.responseText);
     
     //fill array NAMES with everyones names;
+    //fill array COLOR with everyones colors
     for(var n = 0; n < jsonData.length; n++){
         NAMES[n] = jsonData[n].name;
+	COLOR[n] = jsonData[n].color;
     }
 
     //variables needed to create the table
@@ -176,9 +188,9 @@ function makeTable() {
             tableData.innerHTML = rows[i];
             tableData.setAttribute('class', 'divider2');
             table.appendChild(tableData);
-        }
+      
         //any other time we need to build the table's rows with the person schedule
-        else{
+        }else{
             tableData = document.createElement('td');
             tableData = tableRow.insertCell(0);
             tableData.innerHTML = rows[i];
@@ -194,12 +206,14 @@ function makeTable() {
                 if( columns[daysOfWeek] !== " "){
                     //goes through every person and checks there schedule
                     for(var person = 0; person < jsonData.length; person++){
-                    
+		
                         //if their schedule contains day and time then it will add color else null
-                        if(isWorking(daysOfWeek, jsonData[person].schedule) && validTime(integerTime, jsonData[person].schedule)){
+		
+                        if(isWorking(daysOfWeek, jsonData[person].schedule, integerTime)){// && validTime(integerTime, jsonData[person].schedule, daysOfWeek)){
                             tableData = tableRow.insertCell(count);
                             tableData.innerHTML = jsonData[person].name;
-                            count++;
+			    count++;
+			   
                         }else{
                             tableData = tableRow.insertCell(count);
                             tableData.innerHTML = null;
@@ -207,11 +221,11 @@ function makeTable() {
                         }
                         tableRow.appendChild(tableData);
                     }
-                }
-                //more for asetics. Adds divividers between the days of the week to keep grid like structure
-                else{
+                
+                //more for asetics. Adds dividers between the days of the week to keep grid like structure
+                }else{
                     tableData = tableRow.insertCell(count);
-                    //tableData.setAttribute('class', 'divider2');
+                  //  tableData.setAttribute('class', 'divider2');
                     tableRow.appendChild(tableData);
                     count++;
                 }      
@@ -222,7 +236,7 @@ function makeTable() {
 }
 
 // Makes key
-    // Employees apeare in alphabetical order
+    // Employees appear in alphabetical order
 function makeKey() {
     var tr;
     var td;
@@ -302,7 +316,6 @@ function setColors() {
     var classes = '';
     var elements;
     var element;
-
     var trColors = ['#ffffff', '#848D82'];
     var trBool = 0;
 
@@ -323,7 +336,7 @@ function setColors() {
     }
 
     // Set defalut colors of each employee
-        // Colors are assigned in order of their apearence in the COLORS array
+        // Colors are assigned in order of their apearence in the COLOR array
         // to employees in alphabetical order
 
     // Main Table
@@ -331,7 +344,7 @@ function setColors() {
         classes = '.' + NAMES[i];
         elements = document.querySelectorAll('.table ' + classes);
         for (j = 0; j < elements.length; j++) {
-            elements[j].style.backgroundColor = COLORS_RGB[i];
+            elements[j].style.backgroundColor = COLOR[i];
         }
     }
 
@@ -340,7 +353,7 @@ function setColors() {
         classes = '.' + NAMES[i];
         elements = document.querySelectorAll('.key ' + classes);
         for (j = 0; j < elements.length; j++) {
-            elements[j].style.backgroundColor = COLORS_RGB[i];
+            elements[j].style.backgroundColor = COLOR[i];
         }
     }
 }

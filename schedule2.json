@@ -5,8 +5,9 @@
          {
             "day" : "Monday",
             "hours" :
-                 [
+                 [		     
                      {"start" : 12 , "end" : 15}
+		    
                  ]
          },
          {
