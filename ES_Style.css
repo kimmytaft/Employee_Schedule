@@ -40,6 +40,15 @@ body {
   font-weight: bold;
 }
 
+.table .name p { 
+  font-weight: bold;
+  font-size: 2em;
+  margin: 0px;
+  border-style: solid;
+  border-width: 1px;
+ /* background-color: white;*/
+}
+
 .table .line td {
   background-color: #9b9b9b;
   padding: 2px 0px;
@@ -73,6 +82,15 @@ body {
 .table .divider2 {
   height: 1%;
   background-color: #9b9b9b;
+  border-top: none;
+  border-bottom: none;
+}
+
+.table .divider3 {
+  height: 1%;
+  background-color: #9b9b9b;
+  border-width: 1px;
+  border-style: solid;
   border-top: none;
   border-bottom: none;
 }
